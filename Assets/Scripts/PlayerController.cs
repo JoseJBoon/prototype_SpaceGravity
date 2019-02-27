@@ -12,9 +12,11 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        controller.Move(Input.GetAxis("Horizontal"));
+
+        if(Input.GetButtonDown("Jump"))
+            controller.Jump();   
     }
 }
