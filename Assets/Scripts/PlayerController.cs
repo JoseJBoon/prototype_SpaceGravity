@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     CharacterController2D controller;
     CursorBehaviour cursor;
+    ToolBehaviour tool;
 
     Vector3 mouseWorldPosition;
     float xMovement;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController2D>();
         cursor = GetComponent<CursorBehaviour>();
+        tool = GetComponentInChildren<GraveOToolBehaviour>();
         mainCamera = Camera.main;
     }
 
@@ -27,6 +29,11 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetButtonDown("Jump"))
             jump = true;
+
+        if(Input.GetButtonDown("Fire1"))
+            tool.OnPrimaryBehaviour();
+        else if(Input.GetButtonDown("Fire2"))
+            tool.OnSecondaryBehaviour();
     }
 
     void FixedUpdate()
