@@ -22,14 +22,7 @@ public class CharacterController2D : MonoBehaviour
     public void Move(float horizontal)
     {
         Vector2 movement = new Vector2(horizontal, 0) * speed;
-
-        // TODO: Use MovePosition (this creates alot of issues with jumping)
         m_rigidbody.velocity = new Vector2(movement.x, m_rigidbody.velocity.y);
-
-        // if(IsGrounded())
-        //     m_rigidbody.MovePosition((m_rigidbody.position + movement) * Time.fixedDeltaTime);
-        // // else
-        // //     m_rigidbody.AddForce(movement * movementForce);
     }
 
     public void Jump()
@@ -46,7 +39,7 @@ public class CharacterController2D : MonoBehaviour
         
         RaycastHit2D hitLeft = Physics2D.Raycast(feetLeft, -transform.up, .1f);
         RaycastHit2D hitRight = Physics2D.Raycast(feetRight, -transform.up, .1f);
-        
+
         if(hitLeft && hitRight)
             return true;          
 

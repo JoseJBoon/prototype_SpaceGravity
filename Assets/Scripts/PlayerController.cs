@@ -7,16 +7,30 @@ public class PlayerController : MonoBehaviour
 {
     CharacterController2D controller;
 
+    float xMovement;
+    bool jump;
+
     void Awake()
     {
         controller = GetComponent<CharacterController2D>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        controller.Move(Input.GetAxis("Horizontal"));
+        xMovement = Input.GetAxis("Horizontal");
 
         if(Input.GetButtonDown("Jump"))
-            controller.Jump();   
+            jump = true;
+    }
+
+    void FixedUpdate()
+    {
+        controller.Move(xMovement);
+
+        if(jump)
+        {
+            jump = false;
+            controller.Jump();
+        }  
     }
 }
