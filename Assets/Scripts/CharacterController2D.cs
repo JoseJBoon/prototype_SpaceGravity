@@ -6,8 +6,6 @@ using UnityEngine;
 public class CharacterController2D : MonoBehaviour
 {
     public float speed = 5.0f;
-    [Tooltip("When not grounded it will use forces to move around")]
-    public float movementForce = 5.0f;
     public float jumpForce = 500;
 
     Rigidbody2D m_rigidbody;
