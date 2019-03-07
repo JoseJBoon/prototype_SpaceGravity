@@ -56,6 +56,7 @@ public class GravityOrbBehaviour : MonoBehaviour
     {
         pointEffector.forceMagnitude = -pointEffector.forceMagnitude;
         spriteRendererEffector.color = repelColor;
+        startForce = pointEffector.forceMagnitude;
     }
     
     public void LaunchOrb(Vector2 force) => rigidbody.AddForce(force);
