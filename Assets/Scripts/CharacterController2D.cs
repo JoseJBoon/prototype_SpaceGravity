@@ -31,9 +31,11 @@ public class CharacterController2D : MonoBehaviour
 
     bool IsGrounded()
     {     
+        // TODO: Magic numbers
+        // TODO: Try circle cast instead
         // Down left & right positions are in world space  
-        Vector2 feetLeft = m_box.bounds.center - m_box.bounds.extents;
-        Vector2 feetRight = m_box.bounds.center + new Vector3(m_box.bounds.extents.x, -m_box.bounds.extents.y);
+        Vector2 feetLeft = m_box.bounds.center - new Vector3(m_box.bounds.extents.x * .2f, m_box.bounds.extents.y);
+        Vector2 feetRight = m_box.bounds.center + new Vector3(m_box.bounds.extents.x * .2f, -m_box.bounds.extents.y);
         
         RaycastHit2D hitLeft = Physics2D.Raycast(feetLeft, -transform.up, .1f);
         RaycastHit2D hitRight = Physics2D.Raycast(feetRight, -transform.up, .1f);

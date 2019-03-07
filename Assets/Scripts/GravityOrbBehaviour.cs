@@ -25,8 +25,6 @@ public class GravityOrbBehaviour : MonoBehaviour
         pointEffector = GetComponentInChildren<PointEffector2D>();
         spriteRendererEffector = GetComponentsInChildren<SpriteRenderer>()[1]; // :(
 
-            Debug.Log(Color.red);
-
         startForce = pointEffector.forceMagnitude;
         endForce = 0.0f;
         breakDown = false;
