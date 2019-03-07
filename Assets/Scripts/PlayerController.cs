@@ -10,18 +10,31 @@ public class PlayerController : MonoBehaviour
 
     CharacterController2D controller;
     CursorBehaviour cursor;
-    ToolBehaviour tool;
+    ToolBehaviour[] tools;
+    int currentTool = 0;
 
     Vector3 mouseWorldPosition;
     float xMovement;
     bool jump;
     Camera mainCamera;
 
+    public ToolBehaviour CurrentTool
+    {
+        get
+        {
+            if(tools.Length == 0)
+                return null;
+
+            return tools[currentTool];
+        }
+    }
+
     void Awake()
     {
         controller = GetComponent<CharacterController2D>();
         cursor = GetComponent<CursorBehaviour>();
-        tool = GetComponentInChildren<GraveOToolBehaviour>();
+        tools = GetComponentsInChildren<ToolBehaviour>(true);
+
         mainCamera = Camera.main;
     }
 
@@ -33,10 +46,17 @@ public class PlayerController : MonoBehaviour
         if(Input.GetButtonDown("Jump"))
             jump = true;
 
+        if(Input.GetKeyDown(KeyCode.Tab))
+            SwapTool();
+
         if(Input.GetButtonDown("Fire1"))
-            tool.OnPrimaryBehaviour();
+            CurrentTool.OnPrimaryBehaviour();
         else if(Input.GetButtonDown("Fire2"))
-            tool.OnSecondaryBehaviour();
+            CurrentTool.OnSecondaryBehaviour();
+        else if(Input.GetButtonUp("Fire1"))
+            CurrentTool.OnPrimaryReleaseBehaviour();
+        else if(Input.GetButtonUp("Fire2"))
+            CurrentTool.OnSecondaryReleaseBehaviour();
     }
 
     void FixedUpdate()
@@ -60,5 +80,13 @@ public class PlayerController : MonoBehaviour
         toolTarget.localPosition = direction.normalized * 1.0f;
         toolTarget.localRotation = Quaternion.AngleAxis(angle, -Vector3.forward);
         
+    }
+
+    void SwapTool()
+    {
+        Debug.Log("Woot");
+        CurrentTool?.gameObject.SetActive(false);
+        currentTool = (currentTool + 1) % tools.Length;
+        CurrentTool?.gameObject.SetActive(true);
     }
 }
