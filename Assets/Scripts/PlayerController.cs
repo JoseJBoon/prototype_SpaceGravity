@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController2D))]
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField]
+    Transform toolTarget;
+
     CharacterController2D controller;
     CursorBehaviour cursor;
     ToolBehaviour tool;
@@ -50,5 +53,12 @@ public class PlayerController : MonoBehaviour
     void LateUpdate()
     {
         cursor.SetCursorLocation(mouseWorldPosition);
+        
+        Vector3 direction = cursor.GetCursorLocalPosition();
+        float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg - 90.0f;
+
+        toolTarget.localPosition = direction.normalized * 1.0f;
+        toolTarget.localRotation = Quaternion.AngleAxis(angle, -Vector3.forward);
+        
     }
 }

@@ -24,4 +24,14 @@ public class CursorBehaviour : MonoBehaviour
 
         cursor.position = transform.position + offset;
     }
+
+    public Vector3 GetCursorLocalPosition()
+    {
+        return cursor.localPosition;
+    }
+
+    public Vector3 GetCursorWorldPosition()
+    {
+        return cursor.position;
+    }
 }
