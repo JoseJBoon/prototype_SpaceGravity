@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     Transform toolTarget;
 
     CharacterController2D controller;
+    SpawnAtCheckpointBehaviour checkpoint;
     CursorBehaviour cursor;
     ToolBehaviour[] tools;
     int currentTool = 0;
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
     Vector3 mouseWorldPosition;
     float xMovement;
     bool jump;
+    bool spawnAtCheckpoint;
     Camera mainCamera;
 
     public ToolBehaviour CurrentTool
@@ -34,6 +36,7 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController2D>();
         cursor = GetComponent<CursorBehaviour>();
         tools = GetComponentsInChildren<ToolBehaviour>(true);
+        checkpoint = GetComponent<SpawnAtCheckpointBehaviour>();
 
         mainCamera = Camera.main;
     }
@@ -57,6 +60,10 @@ public class PlayerController : MonoBehaviour
             CurrentTool.OnPrimaryReleaseBehaviour();
         else if(Input.GetButtonUp("Fire2"))
             CurrentTool.OnSecondaryReleaseBehaviour();
+
+        if (Input.GetKeyDown(KeyCode.R))
+            spawnAtCheckpoint = true;
+            
     }
 
     void FixedUpdate()
@@ -67,7 +74,13 @@ public class PlayerController : MonoBehaviour
         {
             jump = false;
             controller.Jump();
-        }  
+        }
+
+        if(spawnAtCheckpoint)
+        {
+            spawnAtCheckpoint = false;
+            checkpoint.SpawnAtCheckpoint();
+        }
     }
 
     void LateUpdate()
@@ -84,7 +97,6 @@ public class PlayerController : MonoBehaviour
 
     void SwapTool()
     {
-        Debug.Log("Woot");
         CurrentTool?.gameObject.SetActive(false);
         currentTool = (currentTool + 1) % tools.Length;
         CurrentTool?.gameObject.SetActive(true);
