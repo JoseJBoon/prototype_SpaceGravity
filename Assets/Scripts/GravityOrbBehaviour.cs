@@ -17,6 +17,14 @@ public class GravityOrbBehaviour : MonoBehaviour
     float endForce;
     float timer;
     bool breakDown;
+
+    public bool IsFrozen
+    {
+        get
+        {
+            return rigidbody.bodyType == RigidbodyType2D.Kinematic;
+        }
+    }
     
     void Awake()
     {
@@ -46,6 +54,11 @@ public class GravityOrbBehaviour : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D other)
+    {
+        FreezeOrb();
+    }
+
+    public void FreezeOrb()
     {
         rigidbody.bodyType = RigidbodyType2D.Kinematic;
         rigidbody.velocity = Vector2.zero;

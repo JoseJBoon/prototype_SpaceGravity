@@ -13,13 +13,28 @@ public class GraveOToolBehaviour : ToolBehaviour
 
     public override void OnPrimaryBehaviour()
     {
-        CreateOrb();
+        if(!StopCurrentProjectile())
+            CreateOrb();
     }
 
     public override void OnSecondaryBehaviour()
     {
-        CreateOrb();
-        currentProjectile.ReverseForceMagnitude();
+        if(!StopCurrentProjectile())
+        {
+            CreateOrb();
+            currentProjectile.ReverseForceMagnitude();
+        }   
+    }
+
+    bool StopCurrentProjectile()
+    {
+        if(currentProjectile && !currentProjectile.IsFrozen)
+        {
+            currentProjectile.FreezeOrb();
+            return true;
+        }
+
+        return false;
     }
 
     void CreateOrb()
@@ -27,7 +42,6 @@ public class GraveOToolBehaviour : ToolBehaviour
         if(currentProjectile)
             currentProjectile.DestroyOrb();
 
-        // TODO: Make weapon rotate
         currentProjectile = Instantiate(projectile, transform.position, Quaternion.identity);
         currentProjectile.LaunchOrb(transform.right * launchForce);
     }
