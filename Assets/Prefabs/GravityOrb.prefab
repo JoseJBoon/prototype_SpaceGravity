@@ -60,7 +60,7 @@ PointEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 4151
   m_ForceMagnitude: -150
   m_ForceVariation: 0
   m_DistanceScale: 1
@@ -249,6 +249,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aefe92628f00c942a2539431d35c8ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  breakdownTime: 2
+  breakdownTime: 1
   attractColor: {r: 0, g: 0.695, b: 0.99, a: 0.256}
   repelColor: {r: 0.604, g: 0.082, b: 0.0432, a: 0.256}
