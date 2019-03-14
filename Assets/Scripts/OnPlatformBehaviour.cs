@@ -4,25 +4,29 @@ using UnityEngine;
 
 public class OnPlatformBehaviour : MonoBehaviour
 {
-    Transform onPlatform;
+    MovePlatformBehaviour platform;
+    CharacterController2D character;
+
+    void Awake()
+    {
+        platform = GetComponentInParent<MovePlatformBehaviour>();
+    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            onPlatform = collision.transform;
-            onPlatform.parent = transform.parent;
+            character = collision.GetComponent<CharacterController2D>();
+            character.externalMomentum = platform;
         }
-            
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            onPlatform.parent = null;
-            onPlatform = null;
-        }
-            
+            character.externalMomentum = null;
+            character = null;
+        }   
     }
 }

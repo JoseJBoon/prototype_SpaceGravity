@@ -25,6 +25,14 @@ public class GravityOrbBehaviour : MonoBehaviour
             return rigidbody.bodyType == RigidbodyType2D.Kinematic;
         }
     }
+
+    public float ForceMagnitude
+    {
+        get
+        {
+            return pointEffector.forceMagnitude;
+        }
+    }
     
     void Awake()
     {
