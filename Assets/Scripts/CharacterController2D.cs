@@ -8,6 +8,10 @@ public class CharacterController2D : MonoBehaviour
     public float speed = 5.0f;
     public float jumpForce = 500;
 
+    // For when standing on a platform
+    [HideInInspector]
+    public MovePlatformBehaviour externalMomentum;
+
     Rigidbody2D m_rigidbody;
     BoxCollider2D m_box;
 
@@ -20,7 +24,14 @@ public class CharacterController2D : MonoBehaviour
     public void Move(float horizontal)
     {
         Vector2 movement = new Vector2(horizontal, 0) * speed;
-        m_rigidbody.velocity = new Vector2(movement.x, m_rigidbody.velocity.y);
+        Vector2 externalVelocity = Vector2.zero;
+
+        if (externalMomentum)
+        {
+            externalVelocity = externalMomentum.velocity;
+        }
+    
+        m_rigidbody.velocity = new Vector2(movement.x, m_rigidbody.velocity.y) + externalVelocity;
     }
 
     public void Jump()
