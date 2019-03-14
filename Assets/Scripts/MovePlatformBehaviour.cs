@@ -36,12 +36,12 @@ public class MovePlatformBehaviour : MonoBehaviour
     {
         platformVelocity = PlatformVelocity();
 
+        previousPosition = rigidbody2D.position;
+        
         if (!freezePlatform)
             MovePlatform();
         else if (gravityOrb)
-            PlatformEffector();
-
-        previousPosition = rigidbody2D.position;
+            PlatformEffector();   
     }
 
     void MovePlatform()
