@@ -13,6 +13,7 @@ namespace Custom
         Rigidbody2D rb2d;
         Vector2 startPosition;
         float movement;
+        float timer = 0;
 
         void Awake()
         {
@@ -22,7 +23,7 @@ namespace Custom
 
         void FixedUpdate()
         {
-            movement = Mathf.Sin(Time.time * speed) * distance;
+            movement = Mathf.Sin(timer * speed) * distance;
             Vector2 move = Vector2.zero;
 
             if (moveInXDirection)
@@ -33,6 +34,7 @@ namespace Custom
             rb2d.MovePosition(startPosition + move);
 
             movement = 0;
+            timer += Time.deltaTime;
         }
     }
 

@@ -27,6 +27,6 @@ public class OnPlatformBehaviour : MonoBehaviour
         {
             character.externalMomentum = null;
             character = null;
-        }   
+        }
     }
 }

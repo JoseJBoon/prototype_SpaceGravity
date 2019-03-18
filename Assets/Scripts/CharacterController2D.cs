@@ -29,8 +29,10 @@ public class CharacterController2D : MonoBehaviour
         if (externalMomentum)
         {
             externalVelocity = externalMomentum.velocity;
+            // Y velocity is already being maintained :D
+            externalVelocity.y = 0;
         }
-    
+        
         m_rigidbody.velocity = new Vector2(movement.x, m_rigidbody.velocity.y) + externalVelocity;
     }
 

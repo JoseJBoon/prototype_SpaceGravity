@@ -5,23 +5,25 @@ using UnityEngine;
 public class MovePlatformBehaviour : MonoBehaviour
 {
     public float speed = 1.0f;
-    public float distance = 2.0f;
+    public float targetTime = 1.0f;
     public bool freezePlatform = false;
+
+    [SerializeField]
+    Transform target;
 
     [HideInInspector]
     public GravityOrbBehaviour gravityOrb;
 
     Rigidbody2D rigidbody2D;
     Vector2 startPosition;
-    Vector2 previousPosition;
-
-    Vector2 platformVelocity;
+    Vector2 targetPosition;
+    Vector2 smoothVelocity;
 
     public Vector2 velocity
     {
         get
         {
-            return platformVelocity;
+            return smoothVelocity;
         }
     }
 
@@ -29,15 +31,15 @@ public class MovePlatformBehaviour : MonoBehaviour
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         startPosition = transform.position;
-        platformVelocity = Vector2.zero;
+
+        if (target)
+            targetPosition = target.position;
+        else
+            freezePlatform = true;
     }
 
     void FixedUpdate()
     {
-        platformVelocity = PlatformVelocity();
-
-        previousPosition = rigidbody2D.position;
-        
         if (!freezePlatform)
             MovePlatform();
         else if (gravityOrb)
@@ -46,8 +48,12 @@ public class MovePlatformBehaviour : MonoBehaviour
 
     void MovePlatform()
     {
-        float x = Mathf.Sin(Time.time * speed) * distance;
-        rigidbody2D.MovePosition(startPosition + new Vector2(x, 0));
+        if (Vector2.Distance(rigidbody2D.position, target.position) < 0.1f)
+            targetPosition = startPosition;  
+        else if (Vector2.Distance(rigidbody2D.position, startPosition) < 0.1f)
+            targetPosition = target.position;
+         
+        rigidbody2D.MovePosition(Vector2.SmoothDamp(rigidbody2D.position, targetPosition, ref smoothVelocity, targetTime));
     }
 
     void PlatformEffector()
@@ -61,10 +67,5 @@ public class MovePlatformBehaviour : MonoBehaviour
             //Vector2 direction = (rb.position - (Vector2)transform.position).normalized * -2.0f * Time.deltaTime;
             rigidbody2D.MovePosition(newPosition);
         }
-    }
-
-    Vector2 PlatformVelocity()
-    {
-        return (rigidbody2D.position - previousPosition) / Time.fixedDeltaTime;
     }
 }
