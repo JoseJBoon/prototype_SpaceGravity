@@ -52,9 +52,9 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Tab))
             SwapTool();
 
-        if(Input.GetButtonDown("Fire1"))
+        if(Input.GetButtonDown("Fire1") && GameManager.Instance.GetPlayerUnlocks().PrimaryFire)
             CurrentTool.OnPrimaryBehaviour();
-        else if(Input.GetButtonDown("Fire2"))
+        else if(Input.GetButtonDown("Fire2") && GameManager.Instance.GetPlayerUnlocks().SecondaryFire)
             CurrentTool.OnSecondaryBehaviour();
         else if(Input.GetButtonUp("Fire1"))
             CurrentTool.OnPrimaryReleaseBehaviour();
@@ -98,6 +98,9 @@ public class PlayerController : MonoBehaviour
 
     void SwapTool()
     {
+        if (GameManager.Instance.GetPlayerUnlocks().WeaponSwappingUnlocked)
+            return;
+
         CurrentTool?.gameObject.SetActive(false);
         currentTool = (currentTool + 1) % tools.Length;
         CurrentTool?.gameObject.SetActive(true);
