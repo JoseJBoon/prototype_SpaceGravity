@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     bool jump;
     bool spawnAtCheckpoint;
     Camera mainCamera;
+    GameManager gameManager;
 
     public ToolBehaviour CurrentTool
     {
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
         cursor = GetComponent<CursorBehaviour>();
         tools = GetComponentsInChildren<ToolBehaviour>(true);
         checkpoint = GetComponent<SpawnAtCheckpointBehaviour>();
+        gameManager = GameManager.Instance;
 
         mainCamera = Camera.main;
     }
@@ -52,13 +54,23 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Tab))
             SwapTool();
 
-        if(Input.GetButtonDown("Fire1") && GameManager.Instance.GetPlayerUnlocks().PrimaryFire)
-            CurrentTool.OnPrimaryBehaviour();
-        else if(Input.GetButtonDown("Fire2") && GameManager.Instance.GetPlayerUnlocks().SecondaryFire)
-            CurrentTool.OnSecondaryBehaviour();
-        else if(Input.GetButtonUp("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
+        {
+            if (gameManager.GetPlayerUnlocks().PrimaryFire)
+                CurrentTool.OnPrimaryBehaviour();
+            else
+                Debug.Log("I need an energy cell to use the primary fire.");
+        }
+        else if (Input.GetButtonDown("Fire2"))
+        {
+            if (gameManager.GetPlayerUnlocks().SecondaryFire)
+                CurrentTool.OnSecondaryBehaviour();
+            else
+                Debug.Log("I need a negative engery cell to use the secondary fire.");
+        }
+        else if (Input.GetButtonUp("Fire1"))
             CurrentTool.OnPrimaryReleaseBehaviour();
-        else if(Input.GetButtonUp("Fire2"))
+        else if (Input.GetButtonUp("Fire2"))
             CurrentTool.OnSecondaryReleaseBehaviour();
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -86,6 +98,7 @@ public class PlayerController : MonoBehaviour
 
     void LateUpdate()
     {
+        // TODO: Place in update
         cursor.SetCursorLocation(mouseWorldPosition);
         
         Vector3 direction = cursor.GetCursorLocalPosition();
@@ -98,7 +111,7 @@ public class PlayerController : MonoBehaviour
 
     void SwapTool()
     {
-        if (GameManager.Instance.GetPlayerUnlocks().WeaponSwappingUnlocked)
+        if (gameManager.GetPlayerUnlocks().WeaponSwappingUnlocked)
             return;
 
         CurrentTool?.gameObject.SetActive(false);

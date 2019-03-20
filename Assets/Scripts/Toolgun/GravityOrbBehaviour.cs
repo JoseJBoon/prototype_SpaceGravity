@@ -13,6 +13,8 @@ public class GravityOrbBehaviour : MonoBehaviour
     Rigidbody2D rigidbody;
     PointEffector2D pointEffector;
     SpriteRenderer spriteRendererEffector;
+    ScaleGameObject scaleGameObject;
+    FadeSprite fadeSprite;
     float startForce;
     float endForce;
     float timer;
@@ -40,12 +42,20 @@ public class GravityOrbBehaviour : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         pointEffector = GetComponentInChildren<PointEffector2D>();
         spriteRendererEffector = GetComponentsInChildren<SpriteRenderer>()[1]; // :(
+        fadeSprite = GetComponentInChildren<FadeSprite>();
+        scaleGameObject = GetComponentInChildren<ScaleGameObject>();
 
         startForce = pointEffector.forceMagnitude;
         endForce = 0.0f;
         breakDown = false;
         timer = 0.0f;
         spriteRendererEffector.color = attractColor;
+    }
+
+    void Start()
+    {
+        fadeSprite.StartFade();
+        scaleGameObject.StartScaling();
     }
 
     void Update()
@@ -81,5 +91,10 @@ public class GravityOrbBehaviour : MonoBehaviour
     }
     
     public void LaunchOrb(Vector2 force) => rigidbody.AddForce(force);
-    public void DestroyOrb() => breakDown = true;
+    public void DestroyOrb()
+    {
+        breakDown = true;
+        fadeSprite.ReverseFade();
+        scaleGameObject.ReverseScaling();
+    }
 }

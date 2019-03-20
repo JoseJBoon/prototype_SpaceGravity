@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     {
         public bool PrimaryFire;
         public bool SecondaryFire;
+        public bool GraveOTool;
+        public bool GraveETool;
         public bool WeaponSwappingUnlocked;
     }
 
@@ -25,7 +27,7 @@ public class GameManager : MonoBehaviour
         }
             
         Instance = this;
-        playerUnlocks = new PlayerUnlocks() { PrimaryFire = true, WeaponSwappingUnlocked = false };
+        playerUnlocks = new PlayerUnlocks();
         DontDestroyOnLoad(gameObject);
     }
 

@@ -5,8 +5,7 @@ using UnityEngine;
 public class FollowTarget : MonoBehaviour
 {
     public Transform target;
-
-    Vector3 offset;
+    public Vector3 offset;
 
     void Awake()
     {
@@ -15,8 +14,6 @@ public class FollowTarget : MonoBehaviour
             Debug.LogWarning($"Warning: FollowTarget at {name} behaviour has no target to follow!");
             Destroy(this);
         }
-        
-        offset = transform.position - target.position;
     }
 
     void LateUpdate()
@@ -24,6 +21,7 @@ public class FollowTarget : MonoBehaviour
         if(!target)
             return;
         
+        // TODO: Add Smoothdamp
         transform.position = target.position + offset;
     }
 }
