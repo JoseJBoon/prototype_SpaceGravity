@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     CharacterController2D controller;
     SpawnAtCheckpointBehaviour checkpoint;
+    TextDialogs textDialogs;
     CursorBehaviour cursor;
     ToolBehaviour[] tools;
     int currentTool = 0;
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
         cursor = GetComponent<CursorBehaviour>();
         tools = GetComponentsInChildren<ToolBehaviour>(true);
         checkpoint = GetComponent<SpawnAtCheckpointBehaviour>();
+        textDialogs = GetComponentInChildren<TextDialogs>();
         gameManager = GameManager.Instance;
 
         mainCamera = Camera.main;
@@ -59,14 +61,14 @@ public class PlayerController : MonoBehaviour
             if (gameManager.GetPlayerUnlocks().PrimaryFire)
                 CurrentTool.OnPrimaryBehaviour();
             else
-                Debug.Log("I need an energy cell to use the primary fire.");
+                textDialogs.ShowDialog(0, false);
         }
         else if (Input.GetButtonDown("Fire2"))
         {
             if (gameManager.GetPlayerUnlocks().SecondaryFire)
                 CurrentTool.OnSecondaryBehaviour();
             else
-                Debug.Log("I need a negative engery cell to use the secondary fire.");
+                textDialogs.ShowDialog(1, false); ;
         }
         else if (Input.GetButtonUp("Fire1"))
             CurrentTool.OnPrimaryReleaseBehaviour();
