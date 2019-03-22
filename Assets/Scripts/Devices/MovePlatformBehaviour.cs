@@ -38,6 +38,7 @@ public class MovePlatformBehaviour : PowerDeviceBehaviour
 
     void FixedUpdate()
     {
+        Debug.DrawLine(startPosition, target.position, Color.green);
         if (autoPlatform)
         {
             if(loop)
@@ -77,16 +78,23 @@ public class MovePlatformBehaviour : PowerDeviceBehaviour
 
     void PlatformEffector()
     {
-        // TODO: FixedUdate!!!
-        //Rigidbody2D rb = collision.attachedRigidbody;
-
         if (Vector2.Distance(rigidbody2D.position, gravityOrb.transform.position) > .01f)
         {
-            Vector2 newPosition = Vector2.MoveTowards(rigidbody2D.position, gravityOrb.transform.position, 2.0f * Time.deltaTime);
-            //Vector2 direction = (rb.position - (Vector2)transform.position).normalized * -2.0f * Time.deltaTime;
-            MovePlatform(newPosition);
-            // Set end position;
-            // Can only move along one axis
+            Vector3 headTo = gravityOrb.transform.position - transform.position;
+            Vector3 direction = target.position - (Vector3)startPosition;
+            Vector3 projection = Vector3.Project(headTo, direction);
+
+            Debug.DrawRay(transform.position, projection, Color.blue);
+
+            endPosition = transform.position + projection;
+
+            // TODO: Restrict movement within boundries
+            //if (Vector2.Distance(endPosition, startPosition) < 0.01f)
+            //    endPosition = startPosition;
+            //else if (endPosition.magnitude > target.position.magnitude)
+            //    endPosition = target.position;
+
+            MovePlatform(endPosition);
         }
     }
 }
