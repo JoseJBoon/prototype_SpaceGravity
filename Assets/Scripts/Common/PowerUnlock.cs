@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,6 +8,8 @@ public class PowerUnlock : MonoBehaviour
 {
     [SerializeField]
     UnityEvent powerToUnlock;
+    [SerializeField]
+    GameObject spriteOfPower;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -16,6 +17,7 @@ public class PowerUnlock : MonoBehaviour
         {
             powerToUnlock?.Invoke();
             GetComponent<Collider2D>().enabled = false;
+            spriteOfPower?.SetActive(false);
         }
             
     }

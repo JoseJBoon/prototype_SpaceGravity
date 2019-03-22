@@ -19,7 +19,6 @@ public class FadeSprite : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         startAlpha = spriteRenderer.color.a;
-        Debug.Log(startAlpha);
     }
 
     void Update()
@@ -29,7 +28,6 @@ public class FadeSprite : MonoBehaviour
 
         Color currentColor = spriteRenderer.color;
         currentColor.a = Mathf.Lerp(currentColor.a, targetAlpha, speed * Time.deltaTime);
-        Debug.Log(currentColor.a);
         if (currentColor.a - targetAlpha < 0.01f)
         {
             currentColor.a = targetAlpha;
