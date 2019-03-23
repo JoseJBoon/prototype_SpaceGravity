@@ -84,17 +84,31 @@ public class MovePlatformBehaviour : PowerDeviceBehaviour
             Vector3 direction = target.position - (Vector3)startPosition;
             Vector3 projection = Vector3.Project(headTo, direction);
 
-            Debug.DrawRay(transform.position, projection, Color.blue);
-
             endPosition = transform.position + projection;
 
-            // TODO: Restrict movement within boundries
-            //if (Vector2.Distance(endPosition, startPosition) < 0.01f)
-            //    endPosition = startPosition;
-            //else if (endPosition.magnitude > target.position.magnitude)
-            //    endPosition = target.position;
+            Vector3 unitDirection = direction.normalized;
+            Vector2 fromStart = startPosition + (Vector2)(projection.magnitude * unitDirection);
+
+            // Restrict movement within boundries
+            if (!IsCBetweenAB(startPosition, target.position, endPosition))
+            {
+                // TODO: Do more research :)
+                Vector3 deltaFromStart = endPosition - startPosition;
+                Vector3 deltaFromTarget = (Vector3)endPosition - target.position;
+
+                if (!IsCBetweenAB(transform.position, startPosition, endPosition) && deltaFromStart.magnitude < deltaFromTarget.magnitude)
+                    endPosition = startPosition;
+                else if(!IsCBetweenAB(transform.position, target.position, endPosition))
+                    endPosition = target.position;
+            }
 
             MovePlatform(endPosition);
         }
+    }
+
+    // https://forum.unity.com/threads/how-to-check-a-vector3-position-is-between-two-other-vector3-along-a-line.461474/
+    bool IsCBetweenAB(Vector3 A, Vector3 B, Vector3 C)
+    {
+        return Vector3.Dot((B - A).normalized, (C - B).normalized) < 0f && Vector3.Dot((A - B).normalized, (C - A).normalized) < 0f;
     }
 }
