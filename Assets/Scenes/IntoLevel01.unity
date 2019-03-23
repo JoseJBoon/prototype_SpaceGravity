@@ -7722,6 +7722,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4219866705391477414, guid: a00a5a5083740184eb134761d9ef95c5,
+        type: 3}
+      propertyPath: SoundEffects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4219866705391477414, guid: a00a5a5083740184eb134761d9ef95c5,
+        type: 3}
+      propertyPath: SoundEffects.Array.data[0].AudioName
+      value: main
+      objectReference: {fileID: 0}
+    - target: {fileID: 4219866705391477414, guid: a00a5a5083740184eb134761d9ef95c5,
+        type: 3}
+      propertyPath: SoundEffects.Array.data[0].Soundfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 6d22e684fd8cb294eb038dd8d7c26976, type: 3}
+    - target: {fileID: 4219866705391477413, guid: a00a5a5083740184eb134761d9ef95c5,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4219866705391477413, guid: a00a5a5083740184eb134761d9ef95c5,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a00a5a5083740184eb134761d9ef95c5, type: 3}
 --- !u!1001 &5615429814801793046
