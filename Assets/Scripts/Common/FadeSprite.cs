@@ -28,7 +28,7 @@ public class FadeSprite : MonoBehaviour
 
         Color currentColor = spriteRenderer.color;
         currentColor.a = Mathf.Lerp(currentColor.a, targetAlpha, speed * Time.deltaTime);
-        if (currentColor.a - targetAlpha < 0.01f)
+        if (Mathf.Abs(currentColor.a - targetAlpha) < 0.01f)
         {
             currentColor.a = targetAlpha;
             isFading = false;
