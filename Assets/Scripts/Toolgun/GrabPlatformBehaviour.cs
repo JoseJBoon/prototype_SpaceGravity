@@ -22,6 +22,12 @@ public class GrabPlatformBehaviour : MonoBehaviour
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Platform"))
-            collision.GetComponent<MovePlatformBehaviour>().gravityOrb = null;
+        {
+            GravityOrbBehaviour other = collision.GetComponent<MovePlatformBehaviour>().gravityOrb;
+
+            if(other == orbBehaviour)
+                other = null;
+        }
+            
     }
 }

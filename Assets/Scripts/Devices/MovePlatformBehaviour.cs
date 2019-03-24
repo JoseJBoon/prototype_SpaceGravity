@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class MovePlatformBehaviour : PowerDeviceBehaviour
 {
-    public float speed = 1.0f;
     public float targetTime = 1.0f;
     public bool autoPlatform = false;
     public bool loop = false;
+    public bool reverse = false; // Determines what the endposition in Awake
 
     [SerializeField]
     Transform target;
@@ -33,7 +33,10 @@ public class MovePlatformBehaviour : PowerDeviceBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         startPosition = transform.position;
 
-        endPosition = startPosition;
+        if (!reverse)
+            endPosition = target.position;
+        else
+            endPosition = startPosition;
     }
 
     void FixedUpdate()
