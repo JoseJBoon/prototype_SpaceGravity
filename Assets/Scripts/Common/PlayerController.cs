@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     Transform toolTarget;
 
     CharacterController2D controller;
-    SpawnAtCheckpointBehaviour checkpoint;
+    RespawnableObject respawn;
     TextDialogs textDialogs;
     CursorBehaviour cursor;
     ToolBehaviour[] tools;
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController2D>();
         cursor = GetComponent<CursorBehaviour>();
         tools = GetComponentsInChildren<ToolBehaviour>(true);
-        checkpoint = GetComponent<SpawnAtCheckpointBehaviour>();
+        respawn = GetComponent<RespawnableObject>();
         textDialogs = GetComponentInChildren<TextDialogs>();
         gameManager = GameManager.Instance;
 
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
             CurrentTool.OnSecondaryReleaseBehaviour();
 
         if (Input.GetKeyDown(KeyCode.R))
-            spawnAtCheckpoint = true;
+            respawn.StartRespawn();
             
     }
 
@@ -89,12 +89,6 @@ public class PlayerController : MonoBehaviour
         {
             jump = false;
             controller.Jump();
-        }
-
-        if(spawnAtCheckpoint)
-        {
-            spawnAtCheckpoint = false;
-            checkpoint.SpawnAtCheckpoint();
         }
     }
 

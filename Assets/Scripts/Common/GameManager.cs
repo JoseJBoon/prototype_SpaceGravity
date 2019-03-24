@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
-    Transform lastUnLockedCheckpoint;
     PlayerUnlocks playerUnlocks;
 
     void Awake()
@@ -29,22 +28,6 @@ public class GameManager : MonoBehaviour
         Instance = this;
         playerUnlocks = new PlayerUnlocks();
         DontDestroyOnLoad(gameObject);
-    }
-
-    public Transform LatestCheckpoint()
-    {
-        if(lastUnLockedCheckpoint)
-            return lastUnLockedCheckpoint;
-
-        return null;
-    }
-
-    public void SetCheckPoint(Transform checkpoint)
-    {
-        if (!checkpoint)
-            return;
-
-        lastUnLockedCheckpoint = checkpoint;
     }
 
     public PlayerUnlocks GetPlayerUnlocks()
