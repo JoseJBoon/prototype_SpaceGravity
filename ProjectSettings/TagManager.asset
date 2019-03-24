@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Battery
   - Platform
+  - DynamicBlock
+  - Killer
   layers:
   - Default
   - TransparentFX
