@@ -4,9 +4,21 @@ using UnityEngine;
 
 public class CheckPointBehaviour : MonoBehaviour
 {
-    // TODO: highlight checkpoint
+    static CheckPointBehaviour LastCheckpoint;
+
+    [SerializeField]
+    Sprite inactive;
+    [SerializeField]
+    Sprite active;
     [SerializeField]
     bool enableOnce = true;
+
+    SpriteRenderer spriteRenderer;
+
+    void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -19,6 +31,23 @@ public class CheckPointBehaviour : MonoBehaviour
 
             if (enableOnce)
                 GetComponent<Collider2D>().enabled = false;
+
+            if(LastCheckpoint)
+                LastCheckpoint.Deactivate();
+
+            LastCheckpoint = this;
+
+            Activate();
         }
+    }
+
+    public void Activate()
+    {
+        spriteRenderer.sprite = active;
+    }
+
+    public void Deactivate()
+    {
+        spriteRenderer.sprite = inactive;
     }
 }

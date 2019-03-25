@@ -16,6 +16,7 @@ public class MovePlatformBehaviour : PowerDeviceBehaviour
     public GravityOrbBehaviour gravityOrb;
 
     Rigidbody2D rigidbody2D;
+    LineRenderer lineRenderer;
     Vector2 startPosition;
     Vector2 endPosition;
     Vector2 smoothVelocity;
@@ -31,12 +32,19 @@ public class MovePlatformBehaviour : PowerDeviceBehaviour
     void Awake()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
+        lineRenderer = GetComponent<LineRenderer>();
         startPosition = transform.position;
 
         if (!reverse)
             endPosition = target.position;
         else
             endPosition = startPosition;
+
+        if (!lineRenderer)
+            return;
+
+        lineRenderer.SetPosition(0, startPosition);
+        lineRenderer.SetPosition(1, endPosition);
     }
 
     void FixedUpdate()

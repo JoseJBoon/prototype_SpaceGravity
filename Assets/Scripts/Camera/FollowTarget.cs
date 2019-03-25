@@ -7,6 +7,11 @@ public class FollowTarget : MonoBehaviour
     public Transform target;
     public Vector3 offset;
 
+    [SerializeField]
+    float smoothStep = 1.0f;
+
+    Vector3 smoothVelocity = Vector3.zero;
+
     void Awake()
     {
         if(!target)
@@ -16,12 +21,21 @@ public class FollowTarget : MonoBehaviour
         }
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
-        if(!target)
+        if (!target)
             return;
-        
-        // TODO: Add Smoothdamp
-        transform.position = target.position + offset;
+
+        Vector3 targetPosition = target.TransformPoint(offset);
+        transform.position = Vector3.Lerp(transform.position, targetPosition, smoothStep * Time.deltaTime);
     }
+
+    //void LateUpdate()
+    //{
+    //    if(!target)
+    //        return;
+        
+    //    // TODO: Add Smoothdamp
+    //    transform.position = target.position + offset;
+    //}
 }

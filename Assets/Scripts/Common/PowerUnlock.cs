@@ -10,6 +10,12 @@ public class PowerUnlock : MonoBehaviour
     UnityEvent powerToUnlock;
     [SerializeField]
     GameObject spriteOfPower;
+    ParticleSystem particle;
+
+    void Awake()
+    {
+        particle = GetComponentInChildren<ParticleSystem>();
+    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -18,6 +24,9 @@ public class PowerUnlock : MonoBehaviour
             powerToUnlock?.Invoke();
             GetComponent<Collider2D>().enabled = false;
             spriteOfPower?.SetActive(false);
+
+            if (particle)
+                particle.Stop();
         }
             
     }
