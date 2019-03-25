@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 600236352}
   - component: {fileID: 600236350}
   - component: {fileID: 600236351}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SpawnParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4709,7 +4709,7 @@ GameObject:
   - component: {fileID: 881482943}
   - component: {fileID: 881482945}
   - component: {fileID: 881482944}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DestroyParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9407,7 +9407,7 @@ GameObject:
   - component: {fileID: 1543109246}
   - component: {fileID: 1543109248}
   - component: {fileID: 1543109247}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9502,7 +9502,7 @@ GameObject:
   - component: {fileID: 2219579322038312739}
   - component: {fileID: 2219579322038312736}
   - component: {fileID: 522625754}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Box
   m_TagString: DynamicBlock
   m_Icon: {fileID: 0}
@@ -9545,7 +9545,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &2219579322038312736
 BoxCollider2D:
